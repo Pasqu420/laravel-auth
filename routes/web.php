@@ -6,7 +6,10 @@ Auth::routes();
 Route::get('/', 'GuestController@welcome')
     ->name('welcome');
 
-Route::get('/home', 'HomeController@index')
-    ->name('home');
-    Route::get('/show/{id}', 'HomeController@show')
+Route::get('/show/{id}', 'HomeController@show')
     ->name('show');
+
+Route::get('edit/{id}','HomeController@edit')
+    ->name('edit');
+Route::post('update/{id}','HomeController@update')
+    ->name('update');

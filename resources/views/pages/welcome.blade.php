@@ -7,10 +7,13 @@
     <div class="row d-flex justify-content-between">
         @foreach ($cars as $car)
             <div class="col-3 border m-3">
-                <h4 class="mt-2">
+                <h5 class="mt-2">
                     {{$car->name}}
                     (KW : {{$car->kw}})
-                </h4>
+                    <a href="{{Route('edit',$car)}}">
+                        &#9998;
+                    </a>
+                </h5>
                 <p>
                     <strong>
                         model : 

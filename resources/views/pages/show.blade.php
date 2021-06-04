@@ -24,6 +24,7 @@
             @foreach ($pilot->cars as $car)
                 <li>
                     {{$car->name}}
+                    ({{$car->brand->name}})
                 </li>
             @endforeach
         </ul>
