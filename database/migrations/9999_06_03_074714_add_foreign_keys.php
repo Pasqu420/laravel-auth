@@ -21,11 +21,13 @@ class AddForeignKeys extends Migration
         Schema::table('car_pilot', function (Blueprint $table) {
             $table->foreign('pilot_id','pilotCar')
                 ->references('id')
-                ->on('pilots');
+                ->on('pilots')
+                ->onDelete('cascade');
 
             $table->foreign('car_id','carPilot')
                 ->references('id')
-                ->on('cars');
+                ->on('cars')
+                ->onDelete('cascade');
 
         });
     }

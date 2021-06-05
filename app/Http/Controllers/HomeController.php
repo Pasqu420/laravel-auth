@@ -17,11 +17,13 @@ class HomeController extends Controller
     {
         return view('pages.home');
     }
+
     public function show($id)
     {
         $pilot = Pilot::findOrFail($id);
         return view('pages.show',compact('pilot'));
     }
+
     public function edit($id)
     {
         $car = Car::findOrFail($id);
@@ -29,6 +31,7 @@ class HomeController extends Controller
         $pilots = Pilot::all();
         return view('pages.edit',compact('car','brands','pilots'));
     }
+
     public function update(Request $request,$id)
     {
         $validated = $request ->validate([
@@ -41,6 +44,21 @@ class HomeController extends Controller
         $car->brand()->associate($request->brand_id)
             ->save();
         $car->pilots()->sync($request->pilot_id);
+        return redirect()->route('welcome');
+    }
+
+    public function delete($id)
+    {
+        $car = Car::findOrFail($id);
+        $car->deleted = true;
+        $car->save();
+        return redirect()->route('welcome');
+    }
+
+    public function deletePilot($id)
+    {
+        $pilot = Pilot::findOrFail($id)
+            ->delete();
         return redirect()->route('welcome');
     }
 }

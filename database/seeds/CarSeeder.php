@@ -12,7 +12,7 @@ class CarSeeder extends Seeder
      */
     public function run()
     {
-        factory(Car::class,50) ->make()
+        factory(Car::class,40) ->make()
             ->each(function($car){
                 $brand = Brand::inRandomOrder()->first();
                 $car -> brand() -> associate($brand);

@@ -8,7 +8,7 @@ class GuestController extends Controller
 {
     public function welcome()
     {
-        $cars = Car::all();
+        $cars = Car::where('deleted',false)->get();
         return view('pages.welcome',compact('cars'));
     }
 }

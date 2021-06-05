@@ -10,8 +10,11 @@
                 <h5 class="mt-2">
                     {{$car->name}}
                     (KW : {{$car->kw}})
-                    <a href="{{Route('edit',$car)}}">
+                    <a href="{{Route('edit',$car->id)}}">
                         &#9998;
+                    </a>
+                    <a href="{{Route('delete',$car->id)}}">
+                        &#10060;
                     </a>
                 </h5>
                 <p>
@@ -33,6 +36,9 @@
                                 <a href="{{Route('show',$pilot->id)}}">
                                     {{$pilot->name}}
                                     {{$pilot->lastname}}
+                                </a>
+                                <a style="font-size: 10px" href="{{Route('delete-pilot',$pilot->id)}}">
+                                    &#10060;
                                 </a>
                             </li>
                         @endforeach

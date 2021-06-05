@@ -8,7 +8,7 @@
         
                 <div>
                     <label for="name">NAME</label>
-                    <input class="mt-5" type="text" name="name" id="name" value="{{$car->name}}" required>
+                    <input class="mt-5 is-invalid" type="text" name="name" id="name" value="{{$car->name}}" required>
                 </div>
         
                 <div>
@@ -51,7 +51,7 @@
                         @endforeach
                     </div>
                 </div>
-                <button type="submit">Invia</button>
+                <button class="mb-5" type="submit">Invia</button>
             </form> 
         </div>
 @endsection
