@@ -15,7 +15,7 @@ class PilotSeeder extends Seeder
         factory(Pilot::class, 100) -> create()
             -> each(function($pilot) {
                 $cars = Car::inRandomOrder()
-                        -> limit(rand(1,2))
+                        -> limit(rand(2, 3))
                         -> get();
                 $pilot -> cars() -> attach($cars);
                 $pilot -> save();

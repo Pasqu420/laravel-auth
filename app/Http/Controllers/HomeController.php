@@ -1,10 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Brand;
 use App\Pilot;
 use App\Car;
-use Illuminate\Http\Request;
+use App\Mail\CarNotify;
+use App\Mail\DeleteNotify;
 
 class HomeController extends Controller
 {
@@ -24,6 +29,7 @@ class HomeController extends Controller
         return view('pages.show',compact('pilot'));
     }
 
+    // edit car
     public function edit($id)
     {
         $car = Car::findOrFail($id);
@@ -32,6 +38,7 @@ class HomeController extends Controller
         return view('pages.edit',compact('car','brands','pilots'));
     }
 
+    // update car
     public function update(Request $request,$id)
     {
         $validated = $request ->validate([
@@ -41,24 +48,35 @@ class HomeController extends Controller
         ]);
         $car = Car::findOrFail($id);
         $car->update($validated);
-        $car->brand()->associate($request->brand_id)
-            ->save();
+        $car->brand()->associate($request->brand_id)->save();
         $car->pilots()->sync($request->pilot_id);
+
+        $user = Auth::user();
+        // invia una mail con dettagli della car modificata
+        Mail::to('tua@mail.com')->send(new CarNotify($car));
+        Mail::to($user->email)->send(new CarNotify($car));
+
         return redirect()->route('welcome');
     }
 
-    public function delete($id)
+    // softDeletes
+    public function deleteCar($id)
     {
         $car = Car::findOrFail($id);
-        $car->deleted = true;
+    
+        $user = Auth::user(); //invia una mail con dettagli car eliminata
+        Mail::to($user->email)->send(new DeleteNotify($car));
+
+        $car->delete();
         $car->save();
         return redirect()->route('welcome');
     }
 
+    // softDeletes
     public function deletePilot($id)
     {
         $pilot = Pilot::findOrFail($id)
-            ->delete();
+                        ->delete();
         return redirect()->route('welcome');
     }
 }
