@@ -8,6 +8,9 @@
         <h3 class="col-12">
             {{$pilot->name}}
             {{$pilot->lastname}}
+            <a href="{{Route('delete-pilot',$pilot->id)}}">
+                &#10060;
+            </a>
         </h3>
         <p class="col-12">
             <strong>

@@ -37,9 +37,6 @@
                                     {{$pilot->name}}
                                     {{$pilot->lastname}}
                                 </a>
-                                <a style="font-size: 10px" href="{{Route('delete-pilot',$pilot->id)}}">
-                                    &#10060;
-                                </a>
                             </li>
                         @endforeach
                     </ul>
